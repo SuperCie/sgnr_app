@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sgnr_app/utilities/components/mydrawer.dart';
+import 'package:sgnr_app/utilities/data/catalog.dart';
+import 'package:sgnr_app/utilities/data/catalog_items.dart';
 import 'package:sgnr_app/utilities/models/shop.tile.dart';
 
 class ShopPage extends StatelessWidget {
@@ -7,6 +10,8 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final catalogs = context.watch<CatalogItems>().signoreItems;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -44,15 +49,17 @@ class ShopPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 4,
+              itemCount: catalogs.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return const ShopTile();
+                //get each individual product from shop
+                final catalog = catalogs[index];
+                return ShopTile(catalog: catalog);
               },
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 40),
+            padding: EdgeInsets.only(top: 30),
             child: Divider(
               color: Colors.transparent,
             ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sgnr_app/utilities/data/catalog.dart';
 
 class ShopTile extends StatelessWidget {
-  const ShopTile({super.key});
+  final Catalog catalog;
+  ShopTile({super.key, required this.catalog});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class ShopTile extends StatelessWidget {
       width: 300,
       margin: const EdgeInsets.only(left: 18),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -26,22 +29,20 @@ class ShopTile extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset("assets/images/boxytee.jpg"),
+                  child: Image.asset(catalog.imagePath),
                 ),
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  "Boxy Tee",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  catalog.name,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(
@@ -50,8 +51,7 @@ class ShopTile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  "Overboxy SGNR Scuba, hadir dengan texture bahan yang lembut dan nyaman serta easy mix and match.\n\n"
-                  "Menggunakan material Slogyy Scuba dengan texture yang lembut, stretchy dan antikusut",
+                  catalog.description,
                   style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).colorScheme.inversePrimary),
@@ -67,7 +67,7 @@ class ShopTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Rp 99.000",
+                      "Rp " + catalog.price,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                           fontSize: 18),
