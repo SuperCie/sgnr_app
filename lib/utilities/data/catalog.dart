@@ -1,7 +1,7 @@
 class Catalog {
   final String name;
   final String description;
-  final String price;
+  final double price;
   final String imagePath;
 
   Catalog(

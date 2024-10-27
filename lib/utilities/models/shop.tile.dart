@@ -1,9 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sgnr_app/utilities/data/catalog.dart';
+import 'package:sgnr_app/utilities/data/catalog_items.dart';
 
 class ShopTile extends StatelessWidget {
   final Catalog catalog;
   ShopTile({super.key, required this.catalog});
+
+  void addItemCart(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text("Are you sure want to add this item to your cart?"),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Cancel"),
+          ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<CatalogItems>().addCartItems(catalog);
+            },
+            child: Text("Yes"),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +93,7 @@ class ShopTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Rp " + catalog.price,
+                      catalog.price.toStringAsFixed(3),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.inversePrimary,
                           fontSize: 18),
@@ -81,17 +107,17 @@ class ShopTile extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            size: 25,
-                          ),
-                        ),
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.primary,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  addItemCart(context);
+                                },
+                                icon: Icon(Icons.add))),
                       ),
                     )
                   ],
