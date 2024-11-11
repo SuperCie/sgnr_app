@@ -5,26 +5,26 @@ import 'package:sgnr_app/utilities/data/catalog_items.dart';
 
 class ShopTile extends StatelessWidget {
   final Catalog catalog;
-  ShopTile({super.key, required this.catalog});
+  const ShopTile({super.key, required this.catalog});
 
   void addItemCart(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        content: Text("Are you sure want to add this item to your cart?"),
+        content: const Text("Are you sure want to add this item to your cart?"),
         actions: [
           MaterialButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text("Cancel"),
+            child: const Text("Cancel"),
           ),
           MaterialButton(
             onPressed: () {
               Navigator.pop(context);
               context.read<CatalogItems>().addCartItems(catalog);
             },
-            child: Text("Yes"),
+            child: const Text("Yes"),
           ),
         ],
       ),

@@ -7,10 +7,18 @@ import 'package:sgnr_app/pages/setting_page.dart';
 import 'package:sgnr_app/pages/shop_page.dart';
 import 'package:sgnr_app/utilities/data/catalog_items.dart';
 import 'package:sgnr_app/utilities/theme/light_theme.dart';
+import 'package:sgnr_app/utilities/theme/theme_provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) => CatalogItems(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => CatalogItems(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+      )
+    ],
     child: const Signore(),
   ));
 }
@@ -25,7 +33,7 @@ class Signore extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const IntroPage(),
-        theme: lightMode,
+        theme: Provider.of<ThemeProvider>(context).themeData,
         routes: {
           '/intro_page': (context) => const IntroPage(),
           '/shop_page': (context) => ShopPage(),

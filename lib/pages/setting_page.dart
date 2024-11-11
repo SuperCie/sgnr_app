@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sgnr_app/utilities/theme/theme_provider.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -41,9 +44,13 @@ class _SettingPageState extends State<SettingPage> {
                       fontSize: 18,
                       color: Theme.of(context).colorScheme.inversePrimary),
                 ),
-                const Icon(
-                  Icons.toggle_off,
-                  size: 40,
+                CupertinoSwitch(
+                  value: Provider.of<ThemeProvider>(context, listen: false)
+                      .isDarkMode,
+                  onChanged: (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleMode();
+                  },
                 )
               ],
             ),

@@ -17,6 +17,16 @@ class ShopPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/cart_page');
+                },
+                icon: const Icon(Icons.shopping_cart)),
+          )
+        ],
       ),
       drawer: const Mydrawer(),
       body: Column(
